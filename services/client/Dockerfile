@@ -1,8 +1,11 @@
 FROM golang:1.13
 
+
 WORKDIR $GOPATH/src/github.com/fredericpinaud/client
 
-COPY client.go .
+COPY ./client.go .
+
+RUN ls -la
 
 RUN go get -d -v ./...
 
