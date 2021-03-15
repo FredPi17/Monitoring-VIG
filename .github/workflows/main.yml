@@ -1,0 +1,43 @@
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        name: Check out code
+
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image server
+        with:
+          image: fredericpinaud/mqtt-server-monit
+          tags: server, latest
+          registry: docker.io
+          dockerfile: ./services/server/Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image client
+        with:
+          image: fredericpinaud/mqtt-client-monit
+          tags: client, latest
+          registry: docker.io
+          dockerfile: ./services/client/Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+    
