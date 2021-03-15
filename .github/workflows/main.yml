@@ -19,36 +19,31 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         name: Check out code
-      
-      - name: Login to Docker hub
-        uses: docker/login-action@v1
+
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image server
         with:
+          image: fredericpinaud/mqtt-server-monit
+          registry: docker.io
+          tags: latest
+          dockerfile: ./services/server/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build server image
-        run: 'docker build -t fredericpinaud/mqtt-server-monit ./services/server/Dockerfile'
-      
-      - name: Push image on docker hub 
-        run: 'docker push fredericpinaud/mqtt-server-monit:latest'
-      
   
   build_client_image:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
         name: Check out code
-      
-      - name: Login to Docker hub
-        uses: docker/login-action@v1
+       
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image client
         with:
+          image: fredericpinaud/mqtt-client-monit
+          registry: docker.io
+          tags: latest
+          dockerfile: ./services/client/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build client image
-        run: 'docker build -t fredericpinaud/mqtt-client-monit ./services/client/Dockerfile'
-      
-      - name: Push image on docker hub 
-        run: 'docker push fredericpinaud/mqtt-client-monit:latest'
 
     
