@@ -24,7 +24,6 @@ jobs:
         name: Build & push Docker image server
         with:
           image: fredericpinaud/mqtt-server-monit
-          tags: latest
           registry: docker.io
           dockerfile: ./services/server/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -40,7 +39,6 @@ jobs:
         name: Build & push Docker image client
         with:
           image: fredericpinaud/mqtt-client-monit
-          tags: latest
           registry: docker.io
           dockerfile: ./services/client/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
