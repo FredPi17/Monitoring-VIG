@@ -2,7 +2,7 @@ FROM golang:1.13
 
 WORKDIR $GOPATH/src/github.com/fredericpinaud/server
 
-COPY server.go .
+COPY . .
 
 RUN go get -d -v ./...
 
