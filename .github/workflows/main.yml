@@ -23,7 +23,7 @@ jobs:
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Build & push Docker image server
         with:
-          image: fredericpinaud/mqtt-server-monit
+          image: mqtt-server-monit
           tags: latest
           registry: docker.io
           dockerfile: ./services/server/Dockerfile
@@ -33,7 +33,7 @@ jobs:
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Build & push Docker image client
         with:
-          image: fredericpinaud/mqtt-client-monit
+          image: mqtt-client-monit
           tags: latest
           registry: docker.io
           dockerfile: ./services/client/Dockerfile
