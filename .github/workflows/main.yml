@@ -43,7 +43,7 @@ jobs:
           user: ${{ secrets.DOCKER_USERNAME }}
           pass: ${{ secrets.DOCKER_PASSWORD }}
           slug: fredericpinaud/mqtt-server-monit
-          readme: ./services/server/README.md
+          readme: ../../services/server/README.md
           description: MQTT server monitoring
   
   build_client_image:
@@ -67,7 +67,7 @@ jobs:
         with:
           push: true
           tags: fredericpinaud/mqtt-client-monit:latest
-          file: services/client/Dockerfile
+          file: ../../services/client/Dockerfile
 
       - name: Push readme and description
         uses: meeDamian/sync-readme@v1.0.6
