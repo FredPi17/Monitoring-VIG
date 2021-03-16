@@ -19,7 +19,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       
@@ -36,6 +36,15 @@ jobs:
           push: true
           tags: fredericpinaud/mqtt-server-monit:latest
           file: ./services/server/Dockerfile
+
+      - name: Push readme and description
+        uses: meeDamian/sync-readme@v1.0.6
+        with:
+          user: ${{ secrets.DOCKER_USERNAME }}
+          pass: ${{ secrets.DOCKER_PASSWORD }}
+          slug: fredericpinaud/mqtt-server-monit
+          readme: ./services/server/README.md
+          description: MQTT server monitoring
   
   build_client_image:
     runs-on: ubuntu-latest
@@ -59,5 +68,14 @@ jobs:
           push: true
           tags: fredericpinaud/mqtt-client-monit:latest
           file: ./services/client/Dockerfile
+
+      - name: Push readme and description
+        uses: meeDamian/sync-readme@v1.0.6
+        with:
+          user: ${{ secrets.DOCKER_USERNAME }}
+          pass: ${{ secrets.DOCKER_PASSWORD }}
+          slug: fredericpinaud/mqtt-client-monit
+          readme: ./services/client/README.md
+          description: MQTT client monitoring
 
     
