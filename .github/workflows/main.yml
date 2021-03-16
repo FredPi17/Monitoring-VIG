@@ -17,8 +17,11 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-        name: Check out code
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -37,8 +40,11 @@ jobs:
   build_client_image:
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/checkout@v2
-        name: Check out code
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
        
       - name: Login to DockerHub
         uses: docker/login-action@v1
